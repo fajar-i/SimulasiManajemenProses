@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+</head>
+<style>
+    section,
+    h1,
+    p {
+        min-width: 100%;
+    }
+</style>
+
+<body>
+    <nav class="navbar sticky-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="home.html">Kelompok 2</a>
+            <div class="ms-auto">
+                <a class="navbar-item" href="./../index.html">Home</a>
+                <a class="navbar-item" href="./../First In First Out/index.html">First In First Out</a>
+                <a class="navbar-item shown" href="./../round robin/roundrobin.html">Round Robin</a>
+                <a class="navbar-item" href="./../preemptive.html">SJF preemptive</a>
+                <a class="navbar-item" href="./../sjf non preemptive/indeks.html">SJF Non-preemptive</a>
+            </div>
+        </div>
+    </nav>
+    <div style="text-align: center; padding-top: 30px; margin-bottom: 0;">
+        <h1>Simulasi Manajemen Proses Round robin</h1>
+        <p>Untuk memenuhi salah satu tugas mata kuliah sistem operasi</p>
+        <hr style="color: goldenrod; background-color: goldenrod; border: none; height: 3px; opacity: 100%;">
+    </div>
+    <div class="container" style="display: flex; flex-direction: row; width: 100%; align-items: normal;">
+        <div class="col-md-3" style="display: block; text-align: center; gap: 20px; padding-top: 10px;">
+            <div class="col" style="gap: 30px; display: flex; flex-direction: row;">
+                <div class="col">
+                    <p>Banyak Proses</p>
+                    <input type="text" id="banyakProses" class="form-control">
+                </div>
+                <div class="col">
+                    <p>Nilai Quantum</p>
+                    <input type="text" id="quantum" class="form-control">
+                    <p style="height: 24px;"></p>
+                </div>
+            </div>
+            <div class="col">
+                <button onclick="inputProses()" class="btn"
+                    style="transform: scale(1); margin-left: 0px; width: 100%;">Next</button>
+            </div>
+            <br>
+            <div class="col">
+                <table id="inputData" style="display: none; text-align: center; width: 100%;" class="table">
+                    <tr>
+                        <th scope="col">No.</th>
+                        <th scope="col">Arrival time</th>
+                        <th scope="col">Burst time</th>
+                    </tr>
+                </table>
+                <button onclick="roundRobin()" class="btn" id="submitInput"
+                    style="transform: scale(1); margin-left: 0px; width: 100%; display: none;">Next</button>
+            </div>
+        </div>
+        <div class="col" style="align-items: self-start; padding-left: 150px; ">
+            <table id="hasil" style="display: none; text-align: center;" class="table">
+                <tr>
+                    <th>Urutan</th>
+                    <th>nomor proses</th>
+                    <th>sisa Burst time</th>
+                </tr>
+            </table>
+        </div>
+        <div class="col" style="align-items: self-start; padding-left: 100px; ">
+            <table id="kesimpulan" style="display: none; text-align: center;" class="table">
+                <tr>
+                    <th>proses</th>
+                    <th>Turn Around Time</th>
+                    <th>Waiting Time</th>
+                </tr>
+            </table>
+        </div>
+    </div>
+</body>
+
+</html>
+
+<script>
+    let banyakProses = document.getElementById("banyakProses").value;
+    let quantumAsli = document.getElementById("quantum").value;
+
+    function inputProses() {
+        banyakProses = document.getElementById("banyakProses");
+        quantumAsli = document.getElementById("quantum");
+
+        if (!banyakProses.value || isNaN(banyakProses.value)) {
+            banyakProses.value = 'Input Harus diisi angka!';
+            clearInput = false;
+            return;
+        }
+        if (!quantumAsli.value || isNaN(quantumAsli.value)) {
+            quantumAsli.value = 'Input Harus diisi angka!';
+            clearInput = false;
+            return;
+        }
+        banyakProses = banyakProses.value;
+        quantumAsli = quantumAsli.value;
+
+        document.getElementById("inputData").style.display = "block";
+        document.getElementById("submitInput").style.display = "block";
+
+        document.querySelectorAll('tr.inputField').forEach((tr) => {
+            tr.remove();
+        });
+
+        for (let index = 1; index <= banyakProses; index++) {
+            const numberCollumn = document.createElement("td");
+            const numberData = document.createTextNode(index);
+            numberCollumn.appendChild(numberData);
+
+            const arrivalCollumn = document.createElement("td");
+            const arrivalInput = document.createElement("input");
+            arrivalInput.style.borderBlockColor = "goldenrod";
+            arrivalInput.id = "arrivalProses" + index;
+            arrivalInput.style.color = "wheat";
+            arrivalInput.type = "text";
+            arrivalInput.size = '5';
+            arrivalCollumn.appendChild(arrivalInput);
+
+            const burstCollumn = document.createElement("td");
+            const burstInput = document.createElement("input");
+            burstInput.style.borderBlockColor = "goldenrod";
+            burstInput.id = "burstProses" + index;
+            burstInput.style.color = "wheat";
+            burstInput.type = "text";
+            burstInput.size = '5';
+            burstCollumn.appendChild(burstInput);
+
+            const tableRow = document.createElement("tr");
+            tableRow.appendChild(numberCollumn)
+            tableRow.appendChild(arrivalCollumn);
+            tableRow.appendChild(burstCollumn);
+            tableRow.className = "inputField";
+            document.getElementById("inputData").appendChild(tableRow);
+        }
+    }
+
+    function roundRobin() {
+        let arrayOfProses = [];
+        var clearInput = true;
+        for (let index = 0; index < banyakProses; index++) {
+            const arrivalInput = document.getElementById("arrivalProses" + (index + 1));
+            const burstInput = document.getElementById("burstProses" + (index + 1));
+
+            if (!arrivalInput.value || isNaN(arrivalInput.value)) {
+                arrivalInput.value = 'Input Harus diisi angka!';
+                clearInput = false;
+                break;
+            }
+
+            if (!burstInput.value || isNaN(burstInput.value)) {
+                burstInput.value = 'Input Harus diisi angka!';
+                clearInput = false;
+                break;
+            }
+
+            arrayOfProses.push({
+                "no": index + 1,
+                "arrivalProses": arrivalInput.value,
+                "burstProses": burstInput.value,
+                "endProses": 0
+            });
+        }
+
+        if (!clearInput) return;
+        arrayOfProses.sort((a, b) => a.arrivalProses - b.arrivalProses);
+        let arrayOfProsesReal = structuredClone(arrayOfProses);
+        let index = 0; let nomorAntrian = 0;
+        let queue = []; let result = [];
+        let quantum = quantumAsli;
+
+        while ((arrayOfProses && arrayOfProses.length > 0) || (queue.length > 0)) {
+            for (let j = 0; j < arrayOfProses.length; j++) {
+                if (arrayOfProses[j].arrivalProses <= index) {
+                    queue.push(arrayOfProses[j]);
+                    arrayOfProses.splice(j, 1);
+                    j--;
+                }
+            }
+
+            if (!quantum) {
+                quantum = quantumAsli;
+                nomorAntrian++;
+            }
+            if (nomorAntrian >= queue.length) {
+                nomorAntrian = 0;
+            }
+            if (!queue[nomorAntrian]) {
+                index++;
+                continue;
+            }
+
+            if (queue[nomorAntrian].burstProses > 0) {
+                result[index] = Object.assign({}, queue[nomorAntrian]);
+                queue[nomorAntrian].burstProses--;
+                quantum--;
+            }
+            if (queue[nomorAntrian].burstProses <= 0) {
+                n = (arrayOfProsesReal[queue[nomorAntrian].no - 1].no) - 1;
+                arrayOfProsesReal[n].endProses = index;
+                queue.splice(nomorAntrian, 1);
+                quantum = quantumAsli;
+            }
+            index++;
+        }
+
+        document.querySelectorAll('tr.hasilCollumn').forEach((tr) => {
+            tr.remove();
+        });
+
+        document.getElementById("hasil").style.display = "block";
+        for (let j = 0; j < result.length; j++) {
+            const urutan = document.createElement("td");
+            const numberData = document.createTextNode(j);
+            urutan.appendChild(numberData);
+
+            const kodeProses = document.createElement("td");
+            const kodenya = document.createTextNode(result[j] ? result[j].no : "kosong");
+            kodeProses.appendChild(kodenya);
+
+            const burstCollumn = document.createElement("td");
+            const sisaBurst = document.createTextNode(result[j] ? result[j].burstProses : "kosong");
+            burstCollumn.appendChild(sisaBurst);
+
+            const hasilRow = document.createElement("tr");
+            hasilRow.appendChild(urutan)
+            hasilRow.appendChild(kodeProses);
+            hasilRow.appendChild(burstCollumn);
+            hasilRow.className = "hasilCollumn";
+            document.getElementById("hasil").appendChild(hasilRow);
+        }
+        document.getElementById("kesimpulan").style.display = "block";
+        for (let j = 0; j < banyakProses; j++) {
+            const urutan = document.createElement("td");
+            const numberData = document.createTextNode(arrayOfProsesReal[j].no);
+            urutan.appendChild(numberData);
+
+            const kodeProses = document.createElement("td");
+            const turnAroundTime = arrayOfProsesReal[j].endProses - arrayOfProsesReal[j].arrivalProses + 1;
+            const kodenya = document.createTextNode(turnAroundTime);
+            kodeProses.appendChild(kodenya);
+
+            const burstCollumn = document.createElement("td");
+            const sisaBurst = document.createTextNode(turnAroundTime - arrayOfProsesReal[j].burstProses);
+            burstCollumn.appendChild(sisaBurst);
+
+            const hasilRow = document.createElement("tr");
+            hasilRow.appendChild(urutan)
+            hasilRow.appendChild(kodeProses);
+            hasilRow.appendChild(burstCollumn);
+            hasilRow.className = "hasilCollumn";
+            document.getElementById("kesimpulan").appendChild(hasilRow);
+        }
+    }
+</script>

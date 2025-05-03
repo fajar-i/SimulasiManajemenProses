@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Simulasi FIFO</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="./../round robin/css/bootstrap.min.css">
+</head>
+<style>
+      nav {
+      z-index: 3;
+      background-color: #0c121a;
+      border-bottom: 0.5px solid goldenrod;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: wheat;
+      padding: 5px;
+      text-decoration: none;
+    }
+
+    nav a:hover {
+      color: goldenrod;
+    }
+</style>
+<body>
+  <nav class="navbar sticky-top">
+    <div class="container-fluid">
+      <a style="color: goldenrod;" class="navbar-brand" href="home.html">Kelompok 2</a>
+      <div class="ms-auto">
+        <a href="./../index.html">Home</a>
+        <a style="color: goldenrod;" href="./../First In First Out/index.html">First In First Out</a>
+        <a href="./../round robin/roundrobin.html">Round Robin</a>
+        <a href="./../preemptive.html">SJF preemptive</a>
+        <a href="./../sjf non preemptive/indeks.html">SJF Non-preemptive</a>
+      </div>
+    </div>
+  </nav>
+  <div class="container">
+    <h1>Simulasi Algoritma FIFO</h1>
+    <label for="numProcess">Jumlah Proses:</label>
+    <input type="number" id="numProcess" min="1" max="10" value="3">
+    <button id="generate-table">Buat Tabel</button>
+    <button id="calculate">Simulasikan FIFO</button>
+    <button onclick="playAnimation()">Play</button>
+    <button onclick="pauseAnimation()">Pause</button>
+
+    <table id="inputTable">
+      <thead>
+        <tr>
+          <th>Proses</th>
+          <th>Arrival Time</th>
+          <th>Burst Time</th>
+        </tr>
+      </thead>
+      <tbody id="input-table-body"></tbody>
+    </table>
+
+    <div id="ganttChart" class="gantt-container"></div>
+    <div id="animationArea" class="animation-container"></div>
+
+    <h2>Hasil</h2>
+    <table id="resultTable">
+      <thead>
+        <tr>
+          <th>Proses</th>
+          <th>Arrival</th>
+          <th>Burst</th>
+          <th>Finish</th>
+          <th>TAT</th>
+          <th>Waiting</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+    <div id="averageResult" style="margin-top: 20px;"></div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>

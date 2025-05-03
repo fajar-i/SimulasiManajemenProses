@@ -1,0 +1,181 @@
+body {
+  background-color: #0c121a;
+  font-family: poppins, arial;
+  margin: 0;
+}
+
+#MainTitle {
+  height: 100vh;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0px;
+}
+
+#MainTitle::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("https://simplybetterliving.sharpusa.com/wp-content/uploads/shutterstock_1526624183-768x512.jpg");
+  background-size: cover;
+  filter: brightness(30%);
+  z-index: 1;
+}
+
+#MainTitle img {
+  border-radius: 30px;
+  position: relative;
+  display: block;
+  height: 50vh;
+  margin: 0px;
+  z-index: 2;
+}
+
+#MainTitle p {
+  color: wheat;
+  margin: 0px;
+  z-index: 2;
+  margin-bottom: 30px;
+}
+
+#TitleText {
+  font-size: 70px;
+  text-align: center;
+  color: goldenrod;
+  margin: 0px;
+  margin-top: 20px;
+  z-index: 2;
+}
+
+.banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 60px;
+  color: wheat;
+  font-size: 50px;
+}
+
+.banner section {
+  max-width: 600px;
+}
+
+.banner p {
+  font-size: 20px;
+  margin-top: -50px;
+  line-height: 1.5;
+}
+
+.banner img {
+  width: 300px;
+  height: 300px;
+  object-fit: cover;
+  margin-right: 30px;
+  border-radius: 30px;
+}
+
+.PricelistBg {
+  position: relative;
+  padding: 100px 50px;
+}
+
+.PricelistBg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  filter: brightness(30%);
+  z-index: -1;
+  pointer-events: none;
+}
+
+.Foods::before {
+  background-image: url("./../asset/lauk.jpg");
+}
+
+.Drinks::before {
+  background-image: url("./../asset/laut.jpg");
+}
+
+.Pricelist {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 100px;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  z-index: 2;
+  color: wheat;
+  font-size: large;
+  font-weight: 600;
+}
+
+.FoodItems {
+  width: 15vw;
+  padding: 0;
+}
+
+.FoodItems img {
+  border-radius: 30px;
+  width: 250px;
+  padding: 20px;
+}
+
+.FoodItems h1 {
+  font-size: 30px;
+}
+
+footer .FoodItems p,
+footer li,
+footer ul {
+  font-size: 14px;
+  font-weight: 300;
+  padding: 0px;
+}
+
+footer a {
+  color: wheat;
+  text-decoration: none;
+}
+
+footer a:hover {
+  color: goldenrod;
+  text-decoration: underline;
+}
+
+h1{
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+
+@media (max-width: 768px) {
+  .Pricelist,
+  .banner {
+    flex-direction: column;
+    align-items: center;
+    padding: 0px;
+    margin: 0px;
+    width: 100%; 
+  }
+  
+  .banner img {
+    width: 100%;
+    height: auto;
+    padding: 0px;
+    margin: 0px;
+  }
+  
+  .Pricelist {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+
+  .FoodItems, .FoodItems img{
+    margin: 20px;
+    width: 100%;
+    text-align: center;
+  }
+}

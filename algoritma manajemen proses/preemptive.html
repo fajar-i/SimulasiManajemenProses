@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./round robin/css/bootstrap.min.css">
+
+  <title>Simulasi SJF Preemptive</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f4f6f8;
+      color: #333;
+      padding: 40px;
+    }
+
+    h2,
+    h3 {
+      color: #2c3e50;
+    }
+
+    input,
+    button {
+      padding: 8px;
+      margin: 5px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      background-color: #3498db;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #2980b9;
+    }
+
+    table {
+      width: 100%;
+      margin-top: 10px;
+      border-collapse: collapse;
+    }
+
+    th,
+    td {
+      border: 1px solid #ddd;
+      padding: 10px;
+      text-align: center;
+    }
+
+    th {
+      background-color: #3498db;
+      color: white;
+    }
+
+    #gantt {
+      margin-top: 20px;
+      background: #ecf0f1;
+      padding: 10px;
+      border-radius: 8px;
+      display: flex;
+      gap: 2px;
+      flex-wrap: wrap;
+    }
+
+    .gantt-bar {
+      min-width: 20px;
+      padding: 5px;
+      font-size: 14px;
+      background-color: #2ecc71;
+      border-radius: 4px;
+    }
+
+    pre {
+      background-color: #fff;
+      padding: 15px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      overflow-x: auto;
+    }
+
+    nav {
+      z-index: 3;
+      background-color: #0c121a;
+      border-bottom: 0.5px solid goldenrod;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: wheat;
+      padding: 5px;
+      text-decoration: none;
+    }
+
+    nav a:hover {
+      color: goldenrod;
+    }
+
+    #explanation {
+      margin-top: 30px;
+      background-color: #ffffff;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="navbar sticky-top">
+    <div class="container-fluid">
+      <a style="color: goldenrod;" class="navbar-brand" href="home.html">Kelompok 2</a>
+      <div class="ms-auto">
+        <a href="./index.html">Home</a>
+        <a href="./First In First Out/index.html">First In First Out</a>
+        <a href="./round robin/roundrobin.html">Round Robin</a>
+        <a style="color: goldenrod;" href="./preemptive.html">SJF preemptive</a>
+        <a href="./sjf non preemptive/indeks.html">SJF Non-preemptive</a>
+      </div>
+    </div>
+  </nav>
+  <h2>Simulasi Penjadwalan SJF Preemptive (SRTF)</h2>
+  <div>
+    <label>ID Proses: <input type="text" id="pid"></label>
+    <label>Waktu Kedatangan: <input type="number" id="arrival"></label>
+    <label>Waktu Burst: <input type="number" id="burst"></label>
+    <button onclick="addProcess()">Tambah Proses</button>
+    <button onclick="simulateSJF()">Simulasikan</button>
+  </div>
+
+  <h3>Daftar Proses</h3>
+  <table id="processTable">
+    <tr>
+      <th>PID</th>
+      <th>Waktu Kedatangan</th>
+      <th>Waktu Burst</th>
+    </tr>
+  </table>
+
+  <h3>Gantt Chart</h3>
+  <div id="gantt"></div>
+
+  <h3>Hasil</h3>
+  <pre id="results"></pre>
+
+  <div id="explanation">
+    <h3>Penjelasan Proses</h3>
+    <p id="penjelasan"></p>
+  </div>
+
+  <script>
+    const processes = [];
+
+    function addProcess() {
+      const pid = document.getElementById('pid').value;
+      const arrival = parseInt(document.getElementById('arrival').value);
+      const burst = parseInt(document.getElementById('burst').value);
+      if (!pid || isNaN(arrival) || isNaN(burst)) return;
+      processes.push({ pid, arrival, burst, remaining: burst });
+      const row = document.createElement('tr');
+      row.innerHTML = `<td>${pid}</td><td>${arrival}</td><td>${burst}</td>`;
+      document.getElementById('processTable').appendChild(row);
+      document.getElementById('pid').value = '';
+      document.getElementById('arrival').value = '';
+      document.getElementById('burst').value = '';
+    }
+
+    function simulateSJF() {
+      const timeline = [];
+      const n = processes.length;
+      const completed = [];
+      let time = 0;
+      let completedCount = 0;
+      const proc = JSON.parse(JSON.stringify(processes));
+      let penjelasanLog = [];
+
+      while (completedCount < n) {
+        let idx = -1;
+        let minRem = Infinity;
+        for (let i = 0; i < n; i++) {
+          if (proc[i].arrival <= time && proc[i].remaining > 0 && proc[i].remaining < minRem) {
+            minRem = proc[i].remaining;
+            idx = i;
+          }
+        }
+
+        if (idx !== -1) {
+          proc[idx].remaining--;
+          timeline.push(proc[idx].pid);
+          penjelasanLog.push(`Waktu ${time}: Proses ${proc[idx].pid} dipilih karena memiliki burst time tersisa paling kecil.`);
+          if (proc[idx].remaining === 0) {
+            proc[idx].completion = time + 1;
+            proc[idx].turnaround = proc[idx].completion - proc[idx].arrival;
+            proc[idx].waiting = proc[idx].turnaround - proc[idx].burst;
+            completedCount++;
+            completed.push(proc[idx]);
+            penjelasanLog.push(`Waktu ${time + 1}: Proses ${proc[idx].pid} selesai.`);
+          }
+        } else {
+          timeline.push('_');
+          penjelasanLog.push(`Waktu ${time}: Tidak ada proses yang siap dijalankan.`);
+        }
+        time++;
+      }
+
+      // Gantt Chart
+      const ganttDiv = document.getElementById('gantt');
+      ganttDiv.innerHTML = '';
+      let prev = null;
+      let start = 0;
+      for (let i = 0; i <= timeline.length; i++) {
+        if (timeline[i] !== prev) {
+          if (prev !== null) {
+            const span = document.createElement('div');
+            span.className = 'gantt-bar';
+            span.style.width = (i - start) * 20 + 'px';
+            span.style.background = prev === '_' ? '#95a5a6' : '#2ecc71';
+            span.innerText = prev;
+            ganttDiv.appendChild(span);
+          }
+          prev = timeline[i];
+          start = i;
+        }
+      }
+
+      // Hasil
+      let output = 'PID\tDatang\tBurst\tSelesai\tTurnaround\tMenunggu\n';
+      completed.forEach(p => {
+        output += `${p.pid}\t${p.arrival}\t${p.burst}\t${p.completion}\t\t${p.turnaround}\t\t${p.waiting}\n`;
+      });
+      document.getElementById('results').innerText = output;
+
+      // Penjelasan
+      document.getElementById('penjelasan').innerText = penjelasanLog.join('\n');
+    }
+  </script>
+</body>
+
+</html>

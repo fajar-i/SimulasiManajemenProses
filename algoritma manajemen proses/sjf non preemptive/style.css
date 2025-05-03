@@ -1,0 +1,91 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding: 20px;
+    background-color: #f9f6e8;
+    color: #333;
+  }
+  
+  h2, h3 {
+    color: #4b3f2f;
+  }
+  
+  label {
+    font-weight: bold;
+  }
+  
+  input[type="number"] {
+    width: 60px;
+    padding: 5px;
+    margin: 0 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  button {
+    padding: 7px 14px;
+    margin: 10px 5px;
+    background-color: #927e38;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: #b89d4c;
+  }
+  
+  .proses {
+    margin-bottom: 10px;
+    background-color: #fff8d6;
+    padding: 10px;
+    border-radius: 6px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+  
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-top: 20px;
+    background-color: white;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  
+  th, td {
+    padding: 10px;
+    text-align: center;
+    border-bottom: 1px solid #eee;
+  }
+  
+  th {
+    background-color: #ffe799;
+    color: #333;
+  }
+  
+  tr:hover {
+    background-color: #f9f9f9;
+  }
+  
+  p {
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 10px;
+  }
+  
+  #ganttChart {
+    display: flex;
+    margin-top: 20px;
+  }
+  
+  .gantt-block {
+    padding: 10px;
+    border: 1px solid #ccc;
+    margin-right: 2px;
+    text-align: center;
+    background-color: #ffd966;
+    border-radius: 5px;
+    flex-grow: 1;
+  }

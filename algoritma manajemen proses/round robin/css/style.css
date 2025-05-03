@@ -1,0 +1,334 @@
+p, th, tr {
+  color: wheat;
+}
+
+#hasil td {
+  padding: 7px;
+}
+#kesimpulan td {
+  padding: 7px;
+}
+
+body {
+  background-color: #0c121a;
+  font-family: poppins, arial;
+  text-align: left;
+  margin: 0;
+}
+
+nav {
+  z-index: 3;
+  background-color: #0c121a86;
+  border-bottom: 0.5px solid goldenrod;
+}
+
+.shown,
+.navbar-brand {
+  color: goldenrod;
+}
+
+a {
+  color: wheat;
+  padding: 5px;
+  text-decoration: none;
+}
+
+a:hover {
+  color: goldenrod;
+}
+
+h1 {
+  padding: 0px;
+  color: goldenrod;
+}
+
+header::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("https://simplybetterliving.sharpusa.com/wp-content/uploads/shutterstock_1526624183-768x512.jpg");
+  background-size: cover;
+  filter: brightness(30%);
+  z-index: 1;
+}
+
+header {
+  height: 90vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 100px;
+  margin-top: 0;
+}
+
+header h1 {
+  z-index: 2;
+  font-size: 70px;
+  color: goldenrod;
+  margin: 0px;
+}
+
+header img {
+  border-radius: 30px;
+  height: 50vh;
+}
+
+.container {
+  z-index: 2;
+  display: flex;
+  color: wheat;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.container h4 {
+  max-width: 800px;
+  margin-top: 50px;
+  margin-bottom: 70px;
+}
+
+.container button {
+  color: #0c1f35;
+  background-color: goldenrod;
+  transform: scale(2);
+  margin-left: 50px;
+}
+
+.banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 60px;
+  color: wheat;
+  padding: 0;
+  font-size: medium;
+}
+
+.banner section {
+  max-width: 900px;
+}
+
+.banner p {
+  font-size: 20px;
+  line-height: 1.5;
+}
+
+.banner img {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  margin-right: 30px;
+  border-radius: 30px;
+}
+
+.Foods::before {
+  background-image: url("./../asset/lauk.jpg");
+}
+
+.Drinks::before {
+  background-image: url("./../asset/laut.jpg");
+}
+
+.PricelistBg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  filter: brightness(30%);
+  z-index: -1;
+  pointer-events: none;
+}
+
+.PricelistBg {
+  position: relative;
+  width: 100%; /* Make the background cover the full width */
+  height: auto;
+  white-space: nowrap; /* Prevent wrapping of items to the next line */
+}
+
+.Pricelist {
+  display: flex;
+  z-index: 2;
+  color: wheat;
+  font-size: large;
+  font-weight: 600;
+}
+
+.scroll {
+  overflow-x: auto; /* Enable scrolling */
+  white-space: nowrap; /* Prevent wrapping */
+  scrollbar-width: thin; /* Reduce scrollbar width in Firefox */
+  scrollbar-color: transparent transparent; /* Make scrollbar handle and track transparent */
+}
+
+.scroll::-webkit-scrollbar {
+  display: none; /* Hide scrollbar in Chrome, Safari, and Edge */
+}
+
+.FoodItems {
+  display: inline-block; /* Ensure each item stays inline */
+  margin: 50px; /* Add some space between items */
+  margin-left: 0;
+  white-space: normal; /* Allow text to wrap to the next line */
+  max-width: 200px; /* Set a max width for text to wrap within this limit */
+}
+
+.FoodItems img {
+  border-radius: 30px;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+  width: 200px;
+}
+
+.service img {
+  width: 180px;
+}
+
+.service h1 {
+  padding-top: 20px;
+}
+
+.FoodItems h1 {
+  font-size: 30px;
+  width: 250px;
+}
+
+.booking {
+  border: 0.5px solid goldenrod;
+  border-radius: 10px;
+  max-width: 768px;
+  padding: 50px;
+  margin: auto;
+  margin-top: 50px;
+  color: wheat;
+}
+
+.book-btn {
+  color: #0c1f35;
+  background-color: goldenrod;
+  scale: 1.2;
+  margin-top: 20px;
+  margin-left: 10px;
+}
+
+footer.container,
+footer .FoodItems p,
+footer li,
+footer ul {
+  font-size: 14px;
+  font-weight: 300;
+  padding: 0px;
+  align-items: start;
+}
+
+/* Media Queries for Responsive Design */
+@media (max-width: 1024px) {
+  header {
+    margin-left: auto;
+    margin-right: auto;
+    height: 80vh;
+  }
+
+  header h1 {
+    font-size: 50px;
+  }
+
+  .container {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .banner img {
+    max-width: 150px;
+  }
+
+  .booking {
+    max-width: 75%;
+  }
+
+  .service {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+
+  .FoodItems{
+    margin: 20px;
+    width: 100%;
+    text-align: center;
+  }
+  
+
+}
+
+@media (max-width: 768px) {
+  .container {
+    height: auto;
+    padding: 0;
+    margin: 0;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    flex-direction: column;
+  }
+  
+  header h1 {
+    font-size: 2.5rem;
+  }
+  
+  header img {
+    height: 0;
+    width: 0;
+  }
+  
+ .imgp {
+    color: rgba(240, 255, 255, 0);
+  }
+
+  .banner {
+    padding: 20px;
+    flex-direction: column;
+    align-items: center;
+    text-align: left;
+  }
+
+  .banner img {
+    height: 0;
+    width: 0;
+  }
+
+  .scroll {
+    overflow-x: auto; /* Enable scrolling */
+    white-space: nowrap; /* Prevent wrapping */
+    scrollbar-width: thin; /* Reduce scrollbar width in Firefox */
+    scrollbar-color: transparent transparent; /* Make scrollbar handle and track transparent */
+  }
+  
+  .scroll::-webkit-scrollbar {
+    display: none; /* Hide scrollbar in Chrome, Safari, and Edge */
+  }
+
+  .booking {
+    max-width: 90%;
+    padding: 20px;
+  }
+}
+
+/* @media (max-width: 480px) {
+  header h1 {
+    font-size: 2rem;
+  }
+
+  
+  .container h4 {
+    font-size: 1rem;
+  }
+
+  .banner p {
+    font-size: 1rem;
+  }
+
+  .booking {
+    max-width: 100%;
+  }
+} */

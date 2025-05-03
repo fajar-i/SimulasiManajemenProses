@@ -1,0 +1,62 @@
+body {
+    font-family: sans-serif;
+    background: #1e1e2f;
+    color: white;
+    padding: 20px;
+  }
+  
+  .container {
+    max-width: 900px;
+    margin: auto;
+    text-align: center;
+  }
+  
+  input, button {
+    padding: 6px 10px;
+    margin: 5px;
+  }
+  
+  table {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+    color: #fff;
+  }
+  
+  table th, table td {
+    border: 1px solid #555;
+    padding: 8px;
+  }
+  
+  .gantt-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    gap: 4px;
+  }
+  
+  .gantt-box {
+    padding: 10px;
+    background: #444;
+    color: white;
+    transition: background 0.3s ease;
+    border-radius: 4px;
+  }
+  
+  .gantt-box.active {
+    background: orange;
+  }
+  
+  .animation-container {
+    margin-top: 20px;
+  }
+  
+  .process-box {
+    display: inline-block;
+    padding: 10px;
+    margin-right: 10px;
+    background-color: #666;
+    color: white;
+    border-radius: 5px;
+  }
+  
